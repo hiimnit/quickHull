@@ -15,3 +15,7 @@ int Point::getX() const {
 int Point::getY() const {
     return y;
 }
+
+void Point::Print() const {
+    cout << "x : " << x << " y : " << y << endl;
+}

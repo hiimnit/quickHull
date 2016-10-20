@@ -15,8 +15,14 @@ using namespace std;
 
 class quickHull {
     vector<Point *> * result;
+
+    // vector<pair<Point *, Point *>> result ?????????????
+
     // nejspi treba poslat i nfl ?
-    void findHull(Point &left, Point &right, vector<Point *> &points /*        */);
+    // spravne porovnavat double
+    // spravne porovnavat double
+    // spravne porovnavat double
+    void findHull(Point &left, Point &right, vector<Point *> &points, NormalFormLine &nfl);
 public:
     quickHull(vector<Point *> &points);
     ~quickHull();

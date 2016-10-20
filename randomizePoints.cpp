@@ -5,5 +5,17 @@
 #include "randomizePoints.h"
 
 vector<Point *> * randomizePoints::getPoints(int n) {
-    return new vector<Point *>();
+    vector<Point *> * resultSet = new vector<Point *>();
+
+    resultSet->push_back(new Point(0, 0));
+    resultSet->push_back(new Point(2, 0));
+    resultSet->push_back(new Point(0, 2));
+    resultSet->push_back(new Point(-2, 0));
+    resultSet->push_back(new Point(0, -2));
+    resultSet->push_back(new Point(0, 1));
+    resultSet->push_back(new Point(1, 0));
+    resultSet->push_back(new Point(-1, 0));
+    resultSet->push_back(new Point(0, -1));
+
+    return resultSet;
 }

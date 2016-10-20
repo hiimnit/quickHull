@@ -5,6 +5,9 @@
 #ifndef QUICKHULL_POINT_H
 #define QUICKHULL_POINT_H
 
+#include <iostream>
+
+using namespace std;
 
 class Point {
     int x;
@@ -14,6 +17,7 @@ public:
     virtual ~Point();
     int getX() const;
     int getY() const;
+    void Print() const;
 };
 
 

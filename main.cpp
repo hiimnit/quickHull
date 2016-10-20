@@ -11,9 +11,11 @@ int main() {
     quickHull * qH = new quickHull(*points);
 
 
+    // osetrit pripady pro 1, 2, 3 body
+
     // smazat rP, points, qH, jednotlive Points
     //   - az bude result vector, tak i ten ? ten mozna v destruktoru quickHull
-    for(int i; i < points->size(); ++i) delete points->at(i);
+    for(int i = 0; i < points->size(); ++i) delete points->at(i);
     delete rP;
     delete points;
     delete qH;
