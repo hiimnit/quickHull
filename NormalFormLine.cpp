@@ -9,13 +9,7 @@ NormalFormLine::NormalFormLine(Point &A, Point &B) {
     this->a = (B.getY() - A.getY()) * -1;
     this->b = B.getX() - A.getX();
 
-    this->invsqrt = 1 / sqrt(a * a + b * b);
-
-    // -> vzdy vektor "smerujici nahoru" -> vypocet sedi
-    if (a > b) {
-        a *= -1;
-        b *= -1;
-    }
+    this->invsqrt = 1 / sqrt(a * a + b * b); // save -> zbytecne by se opakoval
 
     this->c = - a * A.getX() - b * A.getY();
 }
@@ -34,17 +28,11 @@ int NormalFormLine::compare(Point &A) {
 double NormalFormLine::getDistance(Point &A) {
     double t = a * A.getX() + b * A.getY() + c;
 
-    if (t < 0) {
-        t *= -1; // abs()
-        cout << "negative distance" << endl << "p : ";
-        this->Print();
-        cout << "A : ";
-        A.Print();
-    }
+    if (t < 0) t *= -1; // abs()
 
     return t * invsqrt;
 }
 
-void NormalFormLine::Print() {
+void NormalFormLine::Print() const {
     cout << " nfl : " << a << " * x + " << b << " * y + " << c << " = 0" << endl;
 }

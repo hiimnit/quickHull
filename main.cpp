@@ -10,6 +10,11 @@ int main() {
 
     quickHull * qH = new quickHull(*points);
 
+    vector<Edge *> resultEdges = qH->execute();
+
+    for(auto e : resultEdges) {
+        e->Print();
+    }
 
     // osetrit pripady pro 1, 2, 3 body
 

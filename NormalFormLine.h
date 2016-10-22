@@ -30,10 +30,11 @@ public:
      * > 0 -> above
      * < 0 -> under
      * = 0 -> on
+     *  --lefttoright Point perspective
      */
     int compare(Point &A);
     double getDistance(Point &A);
-    void Print();
+    void Print() const;
 };
 
 

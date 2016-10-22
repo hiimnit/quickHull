@@ -10,22 +10,18 @@
 #include <iostream>
 #include "Point.h"
 #include "NormalFormLine.h"
+#include "Edge.h"
 
 using namespace std;
 
 class quickHull {
-    vector<Point *> * result;
+    vector<Edge *> * result;
+    vector<Point *> & points;
 
-    // vector<pair<Point *, Point *>> result ?????????????
-
-    // nejspi treba poslat i nfl ?
-    // spravne porovnavat double
-    // spravne porovnavat double
-    // spravne porovnavat double
-    void findUpperHull(Point &left, Point &right, vector<Point *> &points, NormalFormLine &nfl);
-    void findLowerHull(Point &left, Point &right, vector<Point *> &points, NormalFormLine &nfl);
+    void findHull(Point &left, Point &right, vector<Point *> &points, NormalFormLine &nfl);
 public:
-    quickHull(vector<Point *> &points);
+    quickHull(vector<Point *> &p);
+    vector<Edge *> & execute();
     ~quickHull();
 };
 
