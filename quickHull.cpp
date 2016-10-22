@@ -95,7 +95,6 @@ vector<Edge *> &quickHull::execute() {
         if(i <= 0) down->push_back(p);
     }
 
-    // nejspi treba poslat i nfl ?
     findHull(*leftmost, *rightmost, *up, *nfl);
     findHull(*rightmost, *leftmost, *down, *nfl);
 
@@ -103,7 +102,6 @@ vector<Edge *> &quickHull::execute() {
     points.push_back(rightmost);
     points.push_back(leftmost);
 
-    // smazat up, down ?
     delete up;
     delete down;
     delete nfl;

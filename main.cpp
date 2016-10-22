@@ -6,7 +6,7 @@ using namespace std;
 
 int main() {
     randomizePoints * rP = new randomizePoints();
-    vector<Point *> * points = rP->getPoints(1000);
+    vector<Point *> * points = rP->getPoints(10000);
 
     // cast pro mereni
     quickHull * qH = new quickHull(*points);
@@ -15,6 +15,9 @@ int main() {
 
     for(auto e : resultEdges) {
         e->Print();
+    }
+    for(auto p : *points) {
+        p->Print();
     }
 
     // osetrit pripady pro 1, 2, 3 body
