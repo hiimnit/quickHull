@@ -8,9 +8,10 @@ int main() {
     randomizePoints * rP = new randomizePoints();
     vector<Point *> * points = rP->getPoints(1000);
 
+    // cast pro mereni
     quickHull * qH = new quickHull(*points);
-
     vector<Edge *> resultEdges = qH->execute();
+    // </> cast pro mereni
 
     for(auto e : resultEdges) {
         e->Print();
@@ -18,9 +19,8 @@ int main() {
 
     // osetrit pripady pro 1, 2, 3 body
 
-    // smazat rP, points, qH, jednotlive Points
-    //   - az bude result vector, tak i ten ? ten mozna v destruktoru quickHull
     for(int i = 0; i < points->size(); ++i) delete points->at(i);
+    for(int i = 0; i < resultEdges.size(); ++i) delete resultEdges.at(i);
     delete rP;
     delete points;
     delete qH;

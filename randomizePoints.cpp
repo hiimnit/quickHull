@@ -22,3 +22,4 @@ vector<Point *> * randomizePoints::getPoints(int n) {
 
     return resultSet;
 }
+
