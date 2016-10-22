@@ -14,6 +14,10 @@ vector<Point *> * randomizePoints::getPoints(int n) {
     resultSet->push_back(new Point(1, 1));
     resultSet->push_back(new Point(2, 1));
     resultSet->push_back(new Point(-2, 1));
+    resultSet->push_back(new Point(0, -2));
+    resultSet->push_back(new Point(-1, -1));
+    resultSet->push_back(new Point(1, -1));
+    resultSet->push_back(new Point(2, -1));
 
 
     return resultSet;

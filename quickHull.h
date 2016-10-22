@@ -22,7 +22,8 @@ class quickHull {
     // spravne porovnavat double
     // spravne porovnavat double
     // spravne porovnavat double
-    void findHull(Point &left, Point &right, vector<Point *> &points, NormalFormLine &nfl);
+    void findUpperHull(Point &left, Point &right, vector<Point *> &points, NormalFormLine &nfl);
+    void findLowerHull(Point &left, Point &right, vector<Point *> &points, NormalFormLine &nfl);
 public:
     quickHull(vector<Point *> &points);
     ~quickHull();

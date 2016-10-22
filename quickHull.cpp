@@ -50,8 +50,8 @@ quickHull::quickHull(vector<Point *> &points) {
     }
 
     // nejspi treba poslat i nfl ?
-    findHull(*leftmost, *rightmost, *up, *nfl);
-    // findHull(*rightmost, *leftmost, *down, *nfl);
+    findUpperHull(*leftmost, *rightmost, *up, *nfl);
+    findLowerHull(*rightmost, *leftmost, *down, *nfl);
 
     // smazat up, down ?
     delete up;
@@ -63,9 +63,61 @@ quickHull::quickHull(vector<Point *> &points) {
 // spravne porovnavat double
 // spravne porovnavat double
 // spravne porovnavat double
-void quickHull::findHull(Point &left, Point &right, vector<Point *> &points, NormalFormLine &nfl) {
+void quickHull::findUpperHull(Point &left, Point &right, vector<Point *> &points, NormalFormLine &nfl) {
 
-    cout << "findHull" << endl;
+    double f = 0, temp;
+    Point * furthest = NULL;
+    int x = 0, pos = 0;
+    for(auto p : points) {
+        temp = nfl.getDistance(*p);
+        if(temp > f || abs(temp - f) < 0.0000001) {
+            f = temp;
+            furthest = p;
+            pos = x;
+        }
+        x++;
+    }
+
+    if (furthest == NULL) {
+        // push result
+        // push result
+        // push result
+
+        cout << "Adding : " << endl;
+        left.Print();
+        right.Print();
+
+        return;
+    }
+
+    // delete furthest Point from points
+    points.erase(points.begin() + pos);
+
+    NormalFormLine * nfl1 = new NormalFormLine(left, *furthest);
+    NormalFormLine * nfl2 = new NormalFormLine(*furthest, right);
+
+    vector<Point *> * leftPoints = new vector<Point *>();
+    vector<Point *> * rightPoints = new vector<Point *>();
+
+    // if i = 0 -> add
+    for(auto p : points) {
+        int i = nfl1->compare(*p);
+        if(i >= 0) leftPoints->push_back(p);
+        int y = nfl2->compare(*p);
+        if(y >= 0) rightPoints->push_back(p);
+    }
+
+    findUpperHull(left, *furthest, *leftPoints, *nfl1);
+    findUpperHull(*furthest, right, *rightPoints, *nfl2);
+}
+
+quickHull::~quickHull() {
+    delete result;
+}
+
+void quickHull::findLowerHull(Point &left, Point &right, vector<Point *> &points, NormalFormLine &nfl) {
+
+    cout << "findLowerHull" << endl;
     left.Print();
     right.Print();
     nfl.Print();
@@ -108,18 +160,14 @@ void quickHull::findHull(Point &left, Point &right, vector<Point *> &points, Nor
     // if i = 0 -> add
     for(auto p : points) {
         int i = nfl1->compare(*p);
-        if(i >= 0) leftPoints->push_back(p);
+        if(i <= 0) leftPoints->push_back(p);
         int y = nfl2->compare(*p);
-        if(y >= 0) rightPoints->push_back(p);
+        if(y <= 0) rightPoints->push_back(p);
 
         cout << "i : " << i << " y : " << y << endl;
-        if(i > 0 && y > 0) cout << "conflict" << endl;
+        if(i < 0 && y < 0) cout << "conflict" << endl;
     }
 
-    findHull(left, *furthest, *leftPoints, *nfl1);
-    findHull(*furthest, right, *rightPoints, *nfl2);
-}
-
-quickHull::~quickHull() {
-    delete result;
+    findLowerHull(left, *furthest, *leftPoints, *nfl1);
+    findLowerHull(*furthest, right, *rightPoints, *nfl2);
 }

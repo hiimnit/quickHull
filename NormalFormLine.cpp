@@ -34,7 +34,13 @@ int NormalFormLine::compare(Point &A) {
 double NormalFormLine::getDistance(Point &A) {
     double t = a * A.getX() + b * A.getY() + c;
 
-    if (t < 0) t *= -1; // abs()
+    if (t < 0) {
+        t *= -1; // abs()
+        cout << "negative distance" << endl << "p : ";
+        this->Print();
+        cout << "A : ";
+        A.Print();
+    }
 
     return t * invsqrt;
 }
