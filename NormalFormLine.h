@@ -33,6 +33,7 @@ public:
      */
     int compare(Point &A);
     double getDistance(Point &A);
+    void Print();
 };
 
 

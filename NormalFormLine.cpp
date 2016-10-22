@@ -38,3 +38,7 @@ double NormalFormLine::getDistance(Point &A) {
 
     return t * invsqrt;
 }
+
+void NormalFormLine::Print() {
+    cout << " nfl : " << a << " * x + " << b << " * y + " << c << " = 0" << endl;
+}
