@@ -6,12 +6,21 @@
 #define QUICKHULL_RANDOMIZEPOINTS_H
 
 
+#include <set>
 #include <vector>
 #include "Point.h"
 
 using namespace std;
 
 class randomizePoints {
+    struct PointPointerCmp
+    {
+        bool operator()(const Point * lhs, const Point * rhs) const {
+            if (lhs->getX() < rhs->getX()) return true;
+            else if (lhs->getX() > rhs->getX()) return false;
+            return lhs->getY() < rhs->getX();
+        }
+    };
 public:
     vector<Point *> * getPoints(int n);
 };

@@ -19,3 +19,4 @@ int Point::getY() const {
 void Point::Print() const {
     cout << "x : " << x << " y : " << y << endl;
 }
+
