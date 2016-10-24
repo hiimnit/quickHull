@@ -29,8 +29,8 @@ vector<Point *> * randomizePoints::getPoints(int n) {
 
     } else {
         srand (time(NULL));
-        while (resultSet->size() != 100 * n) {
-            resultSet->insert(new Point(rand() % n, rand() % n));
+        while (resultSet->size() != (unsigned int)(10 * n)) {
+            resultSet->insert(new Point(rand() % n - n/2, rand() % n - n/2));
         }
     }
 

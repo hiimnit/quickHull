@@ -8,7 +8,6 @@ quickHull::quickHull(vector<Point *> &p) : points(p) {
     result = new vector<Edge *>();
 }
 
-// nejspi treba poslat i nfl ?
 void quickHull::findHull(Point &left, Point &right, vector<Point *> &points, NormalFormLine &nfl, int dir) {
     if (left == right) return;
 
@@ -47,12 +46,14 @@ void quickHull::findHull(Point &left, Point &right, vector<Point *> &points, Nor
     findHull(left, *furthest, *leftPoints, *nfl1, dir);
     findHull(*furthest, right, *rightPoints, *nfl2, dir);
 
-    delete nfl1, nfl2;
-    delete leftPoints, rightPoints;
+    delete nfl1;
+    delete nfl2;
+    delete leftPoints;
+    delete rightPoints;
 }
 
 quickHull::~quickHull() {
-    for(int i = 0; i < result->size(); ++i) delete result->at(i);
+    for(size_t i = 0; i < result->size(); ++i) delete result->at(i);
     delete result;
 }
 
@@ -121,8 +122,14 @@ vector<Edge *> &quickHull::run() {
     findHull(*rightmost, *bottommost, *rb, *nfl3, 0);
     findHull(*bottommost, *leftmost, *bl, *nfl4, 1);
 
-    delete lt, tr, rb, bl;
-    delete nfl1, nfl2, nfl3, nfl4;
+    delete lt;
+    delete tr;
+    delete rb;
+    delete bl;
+    delete nfl1;
+    delete nfl2;
+    delete nfl3;
+    delete nfl4;
 
     return *result;
 }

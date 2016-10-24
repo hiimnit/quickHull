@@ -6,7 +6,6 @@ using namespace std;
 
 int main() {
     randomizePoints * rP = new randomizePoints();
-
     vector<Point *> * points = rP->getPoints(10000);
 
     // cast pro mereni
@@ -17,8 +16,7 @@ int main() {
     // testloop
     int lastdir = -1;
     for(auto e : resultEdges) {
-
-        e->Print();
+        //e->Print();
 
         if (lastdir > e->direction()) {
             cout << "Err" << endl;
@@ -29,9 +27,9 @@ int main() {
 
     cout << "ding" << endl;
 
-    for(int i = 0; i < points->size(); ++i) delete points->at(i);
+    for(size_t i = 0; i < points->size(); ++i) delete points->at(i);
     delete rP;
-    delete points;
     delete qH;
+    delete points;
     return 0;
 }
