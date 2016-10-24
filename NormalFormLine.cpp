@@ -6,12 +6,10 @@
 
 NormalFormLine::NormalFormLine(Point &A, Point &B, int dir) : A(A), B (B) {
     // normal vector = vector + swap
-    this->a = (B.getY() - A.getY()) * -1;
-    this->b = B.getX() - A.getX();
-
-    this->invsqrt = 1 / sqrt(a * a + b * b); // save -> zbytecne by se opakoval
-
-    this->c = -a * A.getX() - b * A.getY();
+    a = (B.getY() - A.getY()) * -1;
+    b = B.getX() - A.getX();
+    c = -a * A.getX() - b * A.getY();
+    invsqrt = 1 / sqrt(a * a + b * b);
 
     if (dir == 0) {
         X = new Point(A.getX(), B.getY());
@@ -20,24 +18,10 @@ NormalFormLine::NormalFormLine(Point &A, Point &B, int dir) : A(A), B (B) {
     }
 }
 int NormalFormLine::compare(Point &P) {
-    /*  porovnani vzdalenosti vrcholu trojuhelniku od rovnobezky prochazejici porovnavanym bodem a vzdalenosti primky
-     *      // zjednoduseno
-     */
-
     int res = a * P.getX() + b * P.getY() + c;
-
     if (!res) {
-        return -1; // bod na primce
+        return -1;
     }
-
-    /*
-    int c2 =  -a * A.getX() - b * A.getY();
-    int res2 = a * A.getX() + b * A.getY() + c2;
-
-    if (res > res2) return 1;
-
-    return -1;
-     */
 
     double a1 = area(P, B, *X);
     double a2 = area(P, A, *X);

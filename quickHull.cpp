@@ -23,7 +23,7 @@ void quickHull::findHull(Point &left, Point &right, vector<Point *> &points, Nor
     }
 
     if (furthest == NULL) {
-        result->push_back(new Edge(&left, &right));
+        result->push_back(new Edge(left, right));
         return;
     }
 
@@ -59,9 +59,9 @@ quickHull::~quickHull() {
 vector<Edge *> &quickHull::run() {
     if (points.size() <= 3) {
         if(points.size() == 3) {
-            result->push_back(new Edge(points.at(0), points.at(1)));
-            result->push_back(new Edge(points.at(1), points.at(2)));
-            result->push_back(new Edge(points.at(2), points.at(0)));
+            result->push_back(new Edge(*points.at(0), *points.at(1)));
+            result->push_back(new Edge(*points.at(1), *points.at(2)));
+            result->push_back(new Edge(*points.at(2), *points.at(0)));
         }
         return *result;
     }

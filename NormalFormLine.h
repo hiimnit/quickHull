@@ -19,28 +19,17 @@
 using namespace std;
 
 class NormalFormLine {
-    int a;
-    int b;
-    int c;
-    double invsqrt; // invsqrt = 1 / sqrt(a * a + b * b)
-
+    int a, b, c;
     Point & A, & B, * X;
-
+    double invsqrt; // invsqrt = 1 / sqrt(a * a + b * b)
     double area(Point &A, Point &B, Point &C) {
-        return abs(A.getX() * (B.getY() - C.getY()) + B.getX() * (C.getY()-A.getY())+ C.getX()*(A.getY()-B.getY())/2.0);
+        return abs(A.getX() * (B.getY() - C.getY()) + B.getX() * (C.getY()-A.getY())+ C.getX()*(A.getY()-B.getY())); // / 2.0
     }
-
 public:
     NormalFormLine(Point &A, Point &B, int dir);
-    /*
-     * > 0 -> above
-     * < 0 -> under
-     * = 0 -> on
-     *  --lefttoright Point perspective
-     */
     ~NormalFormLine() {
         delete X;
-    }
+    };
     int compare(Point &P);
     double getDistance(Point &A);
     void Print() const;

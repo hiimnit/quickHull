@@ -14,9 +14,8 @@ int main() {
     vector<Edge *> resultEdges = qH->run();
     // </> cast pro mereni
 
-    int lastdir = -1;
-
     // testloop
+    int lastdir = -1;
     for(auto e : resultEdges) {
 
         e->Print();
@@ -29,8 +28,6 @@ int main() {
     }
 
     cout << "ding" << endl;
-
-    // osetrit pripady pro 1, 2, 3 body
 
     for(int i = 0; i < points->size(); ++i) delete points->at(i);
     delete rP;

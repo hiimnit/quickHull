@@ -4,12 +4,12 @@
 
 #include "Edge.h"
 
-Edge::Edge(Point *a, Point *b) : a(a), b(b) {}
+Edge::Edge(Point & A, Point &B) : A(A), B(B) {}
 
 void Edge::Print() {
     cout << "Edge" << endl;
     cout << "A : ";
-    a->Print();
+    A.Print();
     cout << "B : ";
-    b->Print();
+    B.Print();
 }
