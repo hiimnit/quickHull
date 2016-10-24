@@ -6,6 +6,7 @@
 #define QUICKHULL_POINT_H
 
 #include <iostream>
+#include <cmath>
 
 using namespace std;
 
@@ -18,6 +19,9 @@ public:
     int getX() const;
     int getY() const;
     void Print() const;
+    bool operator==(const Point &rhs) const;
+    bool operator!=(const Point &rhs) const;
+    double getDistance(const Point &o) const;
 };
 
 

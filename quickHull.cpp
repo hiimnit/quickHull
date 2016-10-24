@@ -9,19 +9,17 @@ quickHull::quickHull(vector<Point *> &p) : points(p) {
 }
 
 // nejspi treba poslat i nfl ?
-void quickHull::findHull(Point &left, Point &right, vector<Point *> &points, NormalFormLine &nfl) {
+void quickHull::findHull(Point &left, Point &right, vector<Point *> &points, NormalFormLine &nfl, int dir) {
+    if (left == right) return;
 
     double f = 0, temp;
     Point * furthest = NULL;
-    int x = 0, pos = 0;
     for(auto p : points) {
         temp = nfl.getDistance(*p);
-        if(temp > f || abs(temp - f) < 0.0000001) {
+        if(temp > f) {
             f = temp;
             furthest = p;
-            pos = x;
         }
-        x++;
     }
 
     if (furthest == NULL) {
@@ -29,82 +27,102 @@ void quickHull::findHull(Point &left, Point &right, vector<Point *> &points, Nor
         return;
     }
 
-    // delete furthest Point from points
-    points.erase(points.begin() + pos);
-
-    NormalFormLine * nfl1 = new NormalFormLine(left, *furthest);
-    NormalFormLine * nfl2 = new NormalFormLine(*furthest, right);
+    NormalFormLine * nfl1 = new NormalFormLine(left, *furthest, dir);
+    NormalFormLine * nfl2 = new NormalFormLine(*furthest, right, dir);
 
     vector<Point *> * leftPoints = new vector<Point *>();
     vector<Point *> * rightPoints = new vector<Point *>();
 
-    // if i = 0 -> add
+    int i, y;
     for(auto p : points) {
-        int i = nfl1->compare(*p);
-        if(i >= 0) leftPoints->push_back(p);
-        int y = nfl2->compare(*p);
-        if(y >= 0) rightPoints->push_back(p);
+        i = nfl1->compare(*p);
+        if(i > 0) {
+            leftPoints->push_back(p);
+            continue;
+        }
+        y = nfl2->compare(*p);
+        if(y > 0) rightPoints->push_back(p);
     }
 
-    findHull(left, *furthest, *leftPoints, *nfl1);
-    findHull(*furthest, right, *rightPoints, *nfl2);
+    findHull(left, *furthest, *leftPoints, *nfl1, dir);
+    findHull(*furthest, right, *rightPoints, *nfl2, dir);
 
-    delete nfl1;
-    delete nfl2;
-    delete leftPoints;
-    delete rightPoints;
+    delete nfl1, nfl2;
+    delete leftPoints, rightPoints;
 }
 
 quickHull::~quickHull() {
+    for(int i = 0; i < result->size(); ++i) delete result->at(i);
     delete result;
 }
 
-vector<Edge *> &quickHull::execute() {
-    /*
-     *  find lowest/highest x, y // maybe start with 2
-     *  -> 4x NormalFormLine -> cull points
-     */
+vector<Edge *> &quickHull::run() {
+    if (points.size() <= 3) {
+        if(points.size() == 3) {
+            result->push_back(new Edge(points.at(0), points.at(1)));
+            result->push_back(new Edge(points.at(1), points.at(2)));
+            result->push_back(new Edge(points.at(2), points.at(0)));
+        }
+        return *result;
+    }
 
-    Point * leftmost = points.at(0), * rightmost = points.at(0);
-    int lm = 0, rm = 0, x = 0;
+    Point * leftmost = points.at(0), * rightmost = points.at(0), * topmost = points.at(0), * bottommost = points.at(0);
 
-    // wonky - tezko rict jestli funguje poradne
     for(auto p : points) {
         if (p->getX() < leftmost->getX()) {
             leftmost = p;
-            lm = x;
-        } else if (p->getX() > rightmost->getX()) {
-            rightmost = p;
-            rm = x;
         }
-        x++;
+        if (p->getX() > rightmost->getX()) {
+            rightmost = p;
+        }
+        if (p->getY() < bottommost->getY()) {
+            bottommost = p;
+        }
+        if (p->getY() > topmost->getY()) {
+            topmost = p;
+        }
     }
 
-    // vyhodit leftmost a rightmost z points
-    points.erase(points.begin() + rm);
-    points.erase(points.begin() + lm);
+    NormalFormLine * nfl1 = new NormalFormLine(*leftmost, *topmost, 0);
+    NormalFormLine * nfl2 = new NormalFormLine(*topmost, *rightmost, 1);
+    NormalFormLine * nfl3 = new NormalFormLine(*rightmost, *bottommost, 0);
+    NormalFormLine * nfl4 = new NormalFormLine(*bottommost, *leftmost, 1);
 
-    NormalFormLine * nfl = new NormalFormLine(*leftmost, *rightmost);
+    vector<Point *> * lt = new vector<Point *>();
+    vector<Point *> * tr = new vector<Point *>();
+    vector<Point *> * rb = new vector<Point *>();
+    vector<Point *> * bl = new vector<Point *>();
 
-    vector<Point *> * up = new vector<Point *>();
-    vector<Point *> * down = new vector<Point *>();
-
+    int i, j, k, l;
     for(auto p : points) {
-        int i = nfl->compare(*p);
-        if(i >= 0) up->push_back(p);
-        if(i <= 0) down->push_back(p);
+        i = nfl1->compare(*p);
+        if (i > 0) {
+            lt->push_back(p);
+            continue;
+        }
+        j = nfl2->compare(*p);
+        if (j > 0) {
+            tr->push_back(p);
+            continue;
+        }
+        k = nfl3->compare(*p);
+        if (k > 0) {
+            rb->push_back(p);
+            continue;
+        }
+        l = nfl4->compare(*p);
+        if (l > 0) {
+            bl->push_back(p);
+        }
     }
 
-    findHull(*leftmost, *rightmost, *up, *nfl);
-    findHull(*rightmost, *leftmost, *down, *nfl);
+    findHull(*leftmost, *topmost, *lt, *nfl1, 0);
+    findHull(*topmost, *rightmost, *tr, *nfl2, 1);
+    findHull(*rightmost, *bottommost, *rb, *nfl3, 0);
+    findHull(*bottommost, *leftmost, *bl, *nfl4, 1);
 
-    // vratit rightmost a lefmost - pro odstaneni
-    points.push_back(rightmost);
-    points.push_back(leftmost);
-
-    delete up;
-    delete down;
-    delete nfl;
+    delete lt, tr, rb, bl;
+    delete nfl1, nfl2, nfl3, nfl4;
 
     return *result;
 }

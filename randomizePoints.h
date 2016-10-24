@@ -18,7 +18,7 @@ class randomizePoints {
         bool operator()(const Point * lhs, const Point * rhs) const {
             if (lhs->getX() < rhs->getX()) return true;
             else if (lhs->getX() > rhs->getX()) return false;
-            return lhs->getY() < rhs->getX();
+            return lhs->getY() < rhs->getY();
         }
     };
 public:

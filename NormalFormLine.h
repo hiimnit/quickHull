@@ -24,15 +24,24 @@ class NormalFormLine {
     int c;
     double invsqrt; // invsqrt = 1 / sqrt(a * a + b * b)
 
+    Point & A, & B, * X;
+
+    double area(Point &A, Point &B, Point &C) {
+        return abs(A.getX() * (B.getY() - C.getY()) + B.getX() * (C.getY()-A.getY())+ C.getX()*(A.getY()-B.getY())/2.0);
+    }
+
 public:
-    NormalFormLine(Point &A, Point &B);
+    NormalFormLine(Point &A, Point &B, int dir);
     /*
      * > 0 -> above
      * < 0 -> under
      * = 0 -> on
      *  --lefttoright Point perspective
      */
-    int compare(Point &A);
+    ~NormalFormLine() {
+        delete X;
+    }
+    int compare(Point &P);
     double getDistance(Point &A);
     void Print() const;
 };

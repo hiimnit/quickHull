@@ -18,10 +18,10 @@ class quickHull {
     vector<Edge *> * result;
     vector<Point *> & points;
 
-    void findHull(Point &left, Point &right, vector<Point *> &points, NormalFormLine &nfl);
+    void findHull(Point &left, Point &right, vector<Point *> &points, NormalFormLine &nfl, int x);
 public:
     quickHull(vector<Point *> &p);
-    vector<Edge *> & execute();
+    vector<Edge *> & run();
     ~quickHull();
 };
 

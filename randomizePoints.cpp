@@ -5,8 +5,8 @@
 #include "randomizePoints.h"
 
 vector<Point *> * randomizePoints::getPoints(int n) {
-    set<Point *, PointPointerCmp> * resultSet = new set<Point *, PointPointerCmp>();
-    vector<Point *> * res = new vector<Point *>();
+    set<Point *, PointPointerCmp> *resultSet = new set<Point *, PointPointerCmp>();
+    vector<Point *> *res = new vector<Point *>();
 
     if (!n) {
         resultSet->insert(new Point(0, 0));
@@ -20,10 +20,17 @@ vector<Point *> * randomizePoints::getPoints(int n) {
         resultSet->insert(new Point(-1, -1));
         resultSet->insert(new Point(1, -1));
         resultSet->insert(new Point(2, -1));
+    } else if (n == 1) {
+        resultSet->insert(new Point(-4, 0));
+        resultSet->insert(new Point(-3, 3));
+        resultSet->insert(new Point(-2, 2));
+        resultSet->insert(new Point(-1, 1));
+        resultSet->insert(new Point(0, 4));
+
     } else {
         srand (time(NULL));
-        while (resultSet->size() != n) {
-            resultSet->insert(new Point(rand() % 10000 - 5000, rand() % 10000 - 5000));
+        while (resultSet->size() != 100 * n) {
+            resultSet->insert(new Point(rand() % n, rand() % n));
         }
     }
 

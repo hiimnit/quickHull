@@ -14,6 +14,20 @@ class Edge {
 public:
     Edge(Point * a, Point * b);
     void Print();
+    /*
+     * 0 - topright
+     * 1 - bottomright
+     * 2 - bottomleft
+     * 3 - topleft
+     */
+    int direction() {
+        if(a->getX() <= b->getX()) {
+            if (a->getY() <= b->getY()) return 0;
+            return 1;
+        }
+        if (a->getY() >= b->getY()) return 2;
+        return 3;
+    }
 };
 
 
