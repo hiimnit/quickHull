@@ -33,6 +33,7 @@ vector<Point *> * randomizePoints::getPoints(int n) {
     }
 
     res->assign(resultSet->begin(), resultSet->end());
+    delete resultSet;
     cout << "points generated" << endl;
     return res;
 }
