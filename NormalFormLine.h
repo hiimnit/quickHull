@@ -23,7 +23,7 @@ class NormalFormLine {
     Point & A, & B, * X;
     double invsqrt; // invsqrt = 1 / sqrt(a * a + b * b)
     double area(Point &A, Point &B, Point &C) {
-        return abs(A.getX() * (B.getY() - C.getY()) + B.getX() * (C.getY()-A.getY())+ C.getX()*(A.getY()-B.getY())); // / 2.0
+        return abs(A.x * (B.y - C.y) + B.x * (C.y - A.y) + C.x * (A.y - B.y));
     }
 public:
     NormalFormLine(Point &A, Point &B, int dir);

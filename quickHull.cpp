@@ -69,17 +69,16 @@ vector<Edge *> &quickHull::run() {
 
     Point * leftmost = points.at(0), * rightmost = points.at(0), * topmost = points.at(0), * bottommost = points.at(0);
 
+    // one point prolly wont be rigtmost && leftmost
     for(auto p : points) {
-        if (p->getX() < leftmost->getX()) {
+        if (p->x < leftmost->x) {
             leftmost = p;
-        }
-        if (p->getX() > rightmost->getX()) {
+        } else if (p->x > rightmost->x) {
             rightmost = p;
         }
-        if (p->getY() < bottommost->getY()) {
+        if (p->y < bottommost->y) {
             bottommost = p;
-        }
-        if (p->getY() > topmost->getY()) {
+        } else if (p->y > topmost->y) {
             topmost = p;
         }
     }
