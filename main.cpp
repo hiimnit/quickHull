@@ -15,7 +15,7 @@ int main(int argc, char* argv[]) {
     cout << "#points : " << n << endl;
 
     randomizePoints * rP = new randomizePoints();
-    vector<Point *> * points = rP->getPoints(50000);
+    vector<Point *> * points = rP->getPoints(500000);
 
     // cast pro mereni
     quickHull * qH = new quickHull(*points);

@@ -50,7 +50,7 @@ vector<Point *> * randomizePoints::getPoints(int n) {
         while (x < n) {
             int y = 0;
             x += rand() % 500;
-            while ((y = rand() % 10) && y < n) {
+            while ((y = rand() % 50) && y < n) {
                 y += rand() % 500;
                 Point * p = new Point();
                 p->x = x;
