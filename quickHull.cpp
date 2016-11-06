@@ -9,7 +9,7 @@ quickHull::quickHull(vector<Point *> &p) : points(p) {
 }
 
 void quickHull::findHull(Point &left, Point &right, vector<Point *> &points, NormalFormLine &nfl, int dir) {
-    if (left == right) return;
+    if (left.x == right.x && left.y == right.y) return;
 
     double f = 0, temp;
     Point * furthest = NULL;
@@ -93,25 +93,26 @@ vector<Edge *> &quickHull::run() {
     vector<Point *> * rb = new vector<Point *>();
     vector<Point *> * bl = new vector<Point *>();
 
-    int i, j, k, l;
+    // pokud budou serazene, muzu v bode topmost/bottommost prestat porovnavat cast
+    int i;
     for(auto p : points) {
         i = nfl1->compare(*p);
         if (i > 0) {
             lt->push_back(p);
             continue;
         }
-        j = nfl2->compare(*p);
-        if (j > 0) {
+        i = nfl2->compare(*p);
+        if (i > 0) {
             tr->push_back(p);
             continue;
         }
-        k = nfl3->compare(*p);
-        if (k > 0) {
+        i = nfl3->compare(*p);
+        if (i > 0) {
             rb->push_back(p);
             continue;
         }
-        l = nfl4->compare(*p);
-        if (l > 0) {
+        i = nfl4->compare(*p);
+        if (i > 0) {
             bl->push_back(p);
         }
     }

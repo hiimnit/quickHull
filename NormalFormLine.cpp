@@ -9,8 +9,10 @@ NormalFormLine::NormalFormLine(Point &A, Point &B, int dir) : A(A), B (B) {
     a = (B.y - A.y) * -1;
     b = B.x - A.x;
     c = -a * A.x - b * A.y;
+
     invsqrt = 1 / sqrt(a * a + b * b);
 
+    X = new Point();
     if (dir == 0) {
         X->x = A.x;
         X->y = B.y;
@@ -20,12 +22,19 @@ NormalFormLine::NormalFormLine(Point &A, Point &B, int dir) : A(A), B (B) {
     }
 }
 int NormalFormLine::compare(Point &P) {
-    int res = a * P.x + b * P.y + c;
-    // if res == 0 then point on line
-    if (!res) {
-        return -1;
+    float res = a * P.x + b * P.y + c;
+
+    if (res > 0) {
+        // cout << "point : x : " << P.x << " y : " << P.y << " res : " << res << endl;
+        return 1; // todo confirm
     }
 
+    // if res == 0 then point on line
+    if (res == 0) {
+        return -1; // pokud budu vracet -1 tak useless
+    }
+
+    /*
     // comparing using areas
     double a1 = area(P, B, *X);
     double a2 = area(P, A, *X);
@@ -34,7 +43,7 @@ int NormalFormLine::compare(Point &P) {
     double a  = area(A, B, *X); // tohle se takz pocita casto
 
     if (abs(a - a1 - a2 - a3) < 0.00001) return 1;
-
+    */
     return -1;
 }
 

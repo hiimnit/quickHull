@@ -20,11 +20,11 @@ public:
      * 3 - topleft
      */
     int direction() {
-        if(A.getX() <= B.getX()) {
-            if (A.getY() <= B.getY()) return 0;
+        if(A.x <= B.x) {
+            if (A.y <= B.y) return 0;
             return 1;
         }
-        if (A.getY() >= B.getY()) return 2;
+        if (A.y >= B.y) return 2;
         return 3;
     }
 };

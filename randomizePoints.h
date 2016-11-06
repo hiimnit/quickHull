@@ -13,6 +13,7 @@
 using namespace std;
 
 class randomizePoints {
+    /*
     struct PointPointerCmp
     {
         bool operator()(const Point * lhs, const Point * rhs) const {
@@ -20,7 +21,7 @@ class randomizePoints {
             else if (lhs->getX() > rhs->getX()) return false;
             return lhs->getY() < rhs->getY();
         }
-    };
+    };*/
 public:
     vector<Point *> * getPoints(int n);
 };

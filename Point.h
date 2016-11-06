@@ -11,6 +11,7 @@
 using namespace std;
 
 struct Point {
+public:
     int x;
     int y;
 };
