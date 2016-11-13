@@ -19,7 +19,7 @@
 using namespace std;
 
 class NormalFormLine {
-    int a, b, c;
+    float a, b, c;
     Point & A, & B, * X;
     double invsqrt; // invsqrt = 1 / sqrt(a * a + b * b)
     double area(Point &A, Point &B, Point &C) {
@@ -31,7 +31,7 @@ public:
         delete X;
     };
     int compare(Point &P);
-    double getDistance(Point &A);
+    float getDistance(Point &A);
     void Print() const;
 };
 

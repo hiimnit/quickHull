@@ -5,13 +5,13 @@
 #include "quickHull.h"
 
 quickHull::quickHull(vector<Point *> &p) : points(p) {
-    result = new vector<Edge *>();
+    result = new vector<Point *>();
 }
 
 void quickHull::findHull(Point &left, Point &right, vector<Point *> &points, NormalFormLine &nfl, int dir) {
     if (left.x == right.x && left.y == right.y) return;
 
-    double f = 0, temp;
+    float f = 0, temp;
     Point * furthest = NULL;
     for(auto p : points) {
         temp = nfl.getDistance(*p);
@@ -21,8 +21,11 @@ void quickHull::findHull(Point &left, Point &right, vector<Point *> &points, Nor
         }
     }
 
+    // pridat kdyz lezi na primce ?
+
     if (furthest == NULL) {
-        result->push_back(new Edge(left, right));
+        // correct ?
+        result->push_back(&right);
         return;
     }
 
@@ -53,23 +56,21 @@ void quickHull::findHull(Point &left, Point &right, vector<Point *> &points, Nor
 }
 
 quickHull::~quickHull() {
-    for(size_t i = 0; i < result->size(); ++i) delete result->at(i);
     delete result;
 }
 
-vector<Edge *> &quickHull::run() {
+vector<Point *> &quickHull::run() {
     if (points.size() <= 3) {
         if(points.size() == 3) {
-            result->push_back(new Edge(*points.at(0), *points.at(1)));
-            result->push_back(new Edge(*points.at(1), *points.at(2)));
-            result->push_back(new Edge(*points.at(2), *points.at(0)));
+            result->push_back(points.at(0));
+            result->push_back(points.at(1));
+            result->push_back(points.at(2));
         }
         return *result;
     }
 
     Point * leftmost = points.at(0), * rightmost = points.at(0), * topmost = points.at(0), * bottommost = points.at(0);
 
-    // one point prolly wont be rigtmost && leftmost
     for(auto p : points) {
         if (p->x < leftmost->x) {
             leftmost = p;
@@ -93,7 +94,7 @@ vector<Edge *> &quickHull::run() {
     vector<Point *> * rb = new vector<Point *>();
     vector<Point *> * bl = new vector<Point *>();
 
-    // pokud budou serazene, muzu v bode topmost/bottommost prestat porovnavat cast
+    // pokud budou serazene, muzu rozdelit na casti porovnavani
     int i;
     for(auto p : points) {
         i = nfl1->compare(*p);

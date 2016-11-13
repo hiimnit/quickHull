@@ -1,6 +1,8 @@
 //
 // Created by fsoukup on 16.10.2016.
 //
+#include "Point.h"
+
 /*
 #include "Point.h"
 
@@ -34,3 +36,4 @@ double Point::getDistance(const Point &o) const {
 }
 
 */
+

@@ -1,10 +1,14 @@
 #include <iostream>
+#include <ctime>
+#include <ratio>
+#include <chrono>
 #include "quickHull.h"
-#include "randomizePoints.h"
+#include "readPoints.h"
 
 using namespace std;
 
 int main(int argc, char* argv[]) {
+    /*
     int n;
     if(argc != 2) {
         n = 1000000;
@@ -12,30 +16,27 @@ int main(int argc, char* argv[]) {
         n = atoi(argv[1]);
         n = abs(n);
     }
-    cout << "#points : " << n << endl;
+    */
 
-    randomizePoints * rP = new randomizePoints();
-    vector<Point *> * points = rP->getPoints(500000);
+    // read points
+    readPoints * rP = new readPoints();
+    vector<Point *> * points = rP->getPoints("points.in");
+    if (points == NULL) return -1;
 
-    // cast pro mereni
+    // algorithm
+    chrono::high_resolution_clock::time_point t1 = chrono::high_resolution_clock::now();
     quickHull * qH = new quickHull(*points);
-    vector<Edge *> resultEdges = qH->run();
-    // </> cast pro mereni
+    vector<Point *> results = qH->run();
+    chrono::high_resolution_clock::time_point t2 = chrono::high_resolution_clock::now();
+    chrono::duration<double> time_span = chrono::duration_cast<chrono::duration<double>>(t2 - t1);
+    cout << "time : " << time_span.count() << endl;
 
-    // testloop
-    int lastdir = -1;
-    for(auto e : resultEdges) {
-        // e->Print();
+    // test
+    cout << results.size() << " point in convex hull" << endl;
+    if(!rP->checkPoints("res.out", results)) cout << "Incorrect results" << endl;
+    else cout << "Correct results" << endl;
 
-        if (lastdir > e->direction()) {
-            cout << "Err" << endl;
-            e->Print();
-        }
-        lastdir = e->direction();
-    }
-
-    cout << "done" << endl;
-
+    // cleanup
     for(size_t i = 0; i < points->size(); ++i) delete points->at(i);
     delete rP;
     delete qH;

@@ -10,7 +10,7 @@ NormalFormLine::NormalFormLine(Point &A, Point &B, int dir) : A(A), B (B) {
     b = B.x - A.x;
     c = -a * A.x - b * A.y;
 
-    invsqrt = 1 / sqrt(a * a + b * b);
+    invsqrt = 1 / sqrt(a * a + b * b); // useless ?
 
     X = new Point();
     if (dir == 0) {
@@ -29,10 +29,13 @@ int NormalFormLine::compare(Point &P) {
         return 1; // todo confirm
     }
 
+    /*
     // if res == 0 then point on line
+    // pokud budu vracet -1 tak useless
     if (res == 0) {
-        return -1; // pokud budu vracet -1 tak useless
+        return -1;
     }
+    */
 
     /*
     // comparing using areas
@@ -48,12 +51,12 @@ int NormalFormLine::compare(Point &P) {
 }
 
 // v(p, A) = abs(a * a1 + b * a2 + c) / sqrt(a * a + b * b)
-double NormalFormLine::getDistance(Point &A) {
-    double t = a * A.x + b * A.y + c;
+float NormalFormLine::getDistance(Point &A) {
+    float t = a * A.x + b * A.y + c;
 
     if (t < 0) t *= -1; // abs()
 
-    return t * invsqrt;
+    return t * invsqrt; // je treba prenasobit vse stejnou kladnou hodnotou ?
 }
 
 void NormalFormLine::Print() const {

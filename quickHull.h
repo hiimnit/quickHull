@@ -15,13 +15,13 @@
 using namespace std;
 
 class quickHull {
-    vector<Edge *> * result;
+    vector<Point *> * result;
     vector<Point *> & points;
 
     void findHull(Point &left, Point &right, vector<Point *> &points, NormalFormLine &nfl, int x);
 public:
-    quickHull(vector<Point *> &p);
-    vector<Edge *> & run();
+    quickHull(vector<Point *> &points);
+    vector<Point *> & run();
     ~quickHull();
 };
 
