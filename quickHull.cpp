@@ -87,8 +87,8 @@ void quickHull::findHull(Point *left, Point *right, int * pointsPointer, int end
     }
 
     if(dir) {
-        findHull(left, furthest, pointsPointer, s1, nfl2, dir);
-        findHull(furthest, right, pointsPointer + s1, s2 - s1, nfl1, dir);
+        findHull(left, furthest, pointsPointer + s1, s2 - s1, nfl2, dir);
+        findHull(furthest, right, pointsPointer, s1, nfl1, dir);
     } else {
         findHull(left, furthest, pointsPointer, s1, nfl1, dir);
         findHull(furthest, right, pointsPointer + s1, s2 - s1, nfl2, dir);
