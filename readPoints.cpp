@@ -6,6 +6,29 @@
 
 vector<Point *> * readPoints::getPoints(string file) {
     vector<Point *> * res = new vector<Point *>();
+
+    if(file == "test") {
+        res->push_back(new Point(-5, 0));
+        res->push_back(new Point(0, -5));
+        res->push_back(new Point(5, 0));
+        res->push_back(new Point(0, 5));
+        res->push_back(new Point(-4, 3));
+        res->push_back(new Point(-4, -3));
+        res->push_back(new Point(4, 3));
+        res->push_back(new Point(4, -3));
+        res->push_back(new Point(3, 4));
+        res->push_back(new Point(3, -4));
+        res->push_back(new Point(-3, 4));
+        res->push_back(new Point(-3, -4));
+        res->push_back(new Point(1, 1));
+        res->push_back(new Point(-1, 1));
+        res->push_back(new Point(1, -1));
+        res->push_back(new Point(-1, -1));
+        res->push_back(new Point(0, 0));
+        res->push_back(new Point(4, 4));
+        return res;
+    }
+
     fstream fs(file, fstream::in);
     char line[256];
     int number;
@@ -69,6 +92,8 @@ bool readPoints::checkPoints(string file, vector<Point *> &myResult) {
 
     sort(myResult.begin(), myResult.end(), cmp);
     sort(res->begin(), res->end(), cmp);
+
+
 
     for(int i = 0; i < myResult.size(); ++i) {
         cout << "    read : " << *(res->at(i)) << endl;

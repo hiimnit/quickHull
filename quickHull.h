@@ -8,6 +8,7 @@
 
 #include <vector>
 #include <iostream>
+#include <algorithm>
 #include "Point.h"
 #include "NormalFormLine.h"
 #include "Edge.h"
@@ -16,12 +17,13 @@ using namespace std;
 
 class quickHull {
     vector<Point *> * result;
-    vector<Point *> & points;
+    vector<Point *> * points;
+    // int * pointsPointer;
 
-    void findHull(Point &left, Point &right, vector<Point *> &points, NormalFormLine &nfl, int x);
+    void findHull(Point *, Point *, int *, int, NormalFormLine *, int);
 public:
-    quickHull(vector<Point *> &points);
-    vector<Point *> & run();
+    quickHull(vector<Point *> *points);
+    vector<Point *> * run();
     ~quickHull();
 };
 

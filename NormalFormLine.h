@@ -20,18 +20,13 @@ using namespace std;
 
 class NormalFormLine {
     float a, b, c;
-    Point & A, & B, * X;
     double invsqrt; // invsqrt = 1 / sqrt(a * a + b * b)
-    double area(Point &A, Point &B, Point &C) {
-        return abs(A.x * (B.y - C.y) + B.x * (C.y - A.y) + C.x * (A.y - B.y));
-    }
 public:
-    NormalFormLine(Point &A, Point &B, int dir);
+    NormalFormLine(Point *, Point *);
     ~NormalFormLine() {
-        delete X;
     };
-    int compare(Point &P);
-    float getDistance(Point &A);
+    int compare(Point *);
+    float getDistance(Point *);
     void Print() const;
 };
 

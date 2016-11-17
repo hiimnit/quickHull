@@ -4,28 +4,20 @@
 
 #include "NormalFormLine.h"
 
-NormalFormLine::NormalFormLine(Point &A, Point &B, int dir) : A(A), B (B) {
+NormalFormLine::NormalFormLine(Point *A, Point *B) {
     // normal vector = vector + swap
-    a = (B.y - A.y) * -1;
-    b = B.x - A.x;
-    c = -a * A.x - b * A.y;
+    a = (B->y - A->y) * -1;
+    b = B->x - A->x;
+    c = -a * A->x - b * A->y;
 
     invsqrt = 1 / sqrt(a * a + b * b); // useless ?
-
-    X = new Point();
-    if (dir == 0) {
-        X->x = A.x;
-        X->y = B.y;
-    } else {
-        X->x = B.x;
-        X->y = A.y;
-    }
 }
-int NormalFormLine::compare(Point &P) {
-    float res = a * P.x + b * P.y + c;
+int NormalFormLine::compare(Point *P) {
+    float res = a * P->x + b * P->y + c;
 
+
+    cout << "  res : " << res << " | point : " << *P << endl;
     if (res > 0) {
-        // cout << "point : x : " << P.x << " y : " << P.y << " res : " << res << endl;
         return 1; // todo confirm
     }
 
@@ -51,17 +43,14 @@ int NormalFormLine::compare(Point &P) {
 }
 
 // v(p, A) = abs(a * a1 + b * a2 + c) / sqrt(a * a + b * b)
-float NormalFormLine::getDistance(Point &A) {
-    float t = a * A.x + b * A.y + c;
+float NormalFormLine::getDistance(Point * A) {
+    float t = a * A->x + b * A->y + c;
 
     if (t < 0) t *= -1; // abs()
 
-    return t * invsqrt; // je treba prenasobit vse stejnou kladnou hodnotou ?
+    return t; // * invsqrt; // je treba prenasobit vse stejnou kladnou hodnotou ?
 }
 
 void NormalFormLine::Print() const {
-    cout << " nfl : " << a << " * x + " << b << " * y + " << c << " = 0" << endl;
-    cout << " x   : " << "X_x : " << X->x << " | X_y : " << X->y << endl;
-    cout << " a   : " << "A_x : " << A.x << " | A_y : " << A.y << endl;
-    cout << " b   : " << "B_x : " << B.x << " | B_y : " << B.y << endl;
+    cout << " nfl : " << setprecision(16) << a << " * x + " << b << " * y + " << c << " = 0" << endl;
 }
