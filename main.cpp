@@ -41,8 +41,6 @@ int main(int argc, char* argv[]) {
     if(!rP->checkPoints("res.out", *results)) cout << "Incorrect results" << endl;
     else cout << "Correct results" << endl;
 
-    for(int i = 0; i < results->size(); ++i) cout << *(results->at(i)) << endl;
-
     // cleanup
     for(size_t i = 0; i < points->size(); ++i) delete points->at(i);
     delete rP;

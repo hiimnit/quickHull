@@ -19,14 +19,14 @@
 using namespace std;
 
 class NormalFormLine {
-    float a, b, c;
+    double a, b, c;
     double invsqrt; // invsqrt = 1 / sqrt(a * a + b * b)
 public:
     NormalFormLine(Point *, Point *);
     ~NormalFormLine() {
     };
     int compare(Point *);
-    float getDistance(Point *);
+    double getDistance(Point *);
     void Print() const;
 };
 

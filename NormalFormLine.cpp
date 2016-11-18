@@ -13,42 +13,26 @@ NormalFormLine::NormalFormLine(Point *A, Point *B) {
     invsqrt = 1 / sqrt(a * a + b * b); // useless ?
 }
 int NormalFormLine::compare(Point *P) {
-    float res = a * P->x + b * P->y + c;
+    double res = a * P->x + b * P->y + c;
 
+    if (abs(res) < 0.000000000001) {
+        return -1; // point on line
+    }
 
-    cout << "  res : " << res << " | point : " << *P << endl;
     if (res > 0) {
-        return 1; // todo confirm
+        return 1;
     }
 
-    /*
-    // if res == 0 then point on line
-    // pokud budu vracet -1 tak useless
-    if (res == 0) {
-        return -1;
-    }
-    */
-
-    /*
-    // comparing using areas
-    double a1 = area(P, B, *X);
-    double a2 = area(P, A, *X);
-    double a3 = area(P, A, B);
-
-    double a  = area(A, B, *X); // tohle se takz pocita casto
-
-    if (abs(a - a1 - a2 - a3) < 0.00001) return 1;
-    */
     return -1;
 }
 
 // v(p, A) = abs(a * a1 + b * a2 + c) / sqrt(a * a + b * b)
-float NormalFormLine::getDistance(Point * A) {
-    float t = a * A->x + b * A->y + c;
+double NormalFormLine::getDistance(Point * A) {
+    double t = a * A->x + b * A->y + c;
 
     if (t < 0) t *= -1; // abs()
 
-    return t; // * invsqrt; // je treba prenasobit vse stejnou kladnou hodnotou ?
+    return t * invsqrt; // je treba prenasobit vse stejnou kladnou hodnotou ?
 }
 
 void NormalFormLine::Print() const {

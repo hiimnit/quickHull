@@ -96,8 +96,6 @@ bool readPoints::checkPoints(string file, vector<Point *> &myResult) {
 
 
     for(int i = 0; i < myResult.size(); ++i) {
-        cout << "    read : " << *(res->at(i)) << endl;
-        cout << "computed : " << *(myResult.at(i)) << endl;
         if (myResult.at(i)->x != res->at(i)->x || myResult.at(i)->y != res->at(i)->y) {
             fs.close();
             for(int i = 0; i < res->size(); ++i) delete res->at(i);
