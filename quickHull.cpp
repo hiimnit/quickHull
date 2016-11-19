@@ -15,8 +15,6 @@ quickHull::quickHull(vector<Point *> *p) : points(p) {
 
 void quickHull::findHull(Point *left, Point *right, int * pointsPointer, int end, NormalFormLine *nfl, int dir) {
     if (left->x == right->x && left->y == right->y) return;
-    if (left->x == 99999 && left->y == 75406) cout << "left" << endl;
-    if (right->x == 99999 && right->y == 75406) cout << "right" << endl;
     double f = 0, temp;
     int j;
     Point * furthest = NULL;
